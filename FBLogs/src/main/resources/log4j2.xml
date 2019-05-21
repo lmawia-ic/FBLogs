@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Configuration status="INFO" monitorInterval="30">
+  
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT" >
+      <PatternLayout>
+        <pattern>%level: [%c{1.}] %m%n</pattern>
+      </PatternLayout>
+    </Console>
+    <RollingFile name="InfoRollingFile" fileName="/logs/fblogs/info.log" filePattern="/logs/fblogs/info/$${date:yyyy-MM-dd}/info.log-%d{yyyy-MM-dd}-%i.gz">
+      <Policies>
+        <CronTriggeringPolicy schedule="0 0 0 * * ?"/>
+        <SizeBasedTriggeringPolicy size="1GB"/>
+      </Policies>
+      <DefaultRolloverStrategy>
+        <fileIndex>nomax</fileIndex>
+        <Delete basePath="/logs/fblogs/info/" maxDepth="2">
+          <IfFileName glob="*/*.gz" />
+          <IfLastModified age="60d" />
+        </Delete>
+      </DefaultRolloverStrategy>
+    </RollingFile>
+    <RollingFile name="ErrorRollingFile" fileName="/logs/fblogs/error.log" filePattern="/logs/fblogs/error/$${date:yyyy-MM-dd}/error.log-%d{yyyy-MM-dd}-%i.gz">
+      <Policies>
+        <CronTriggeringPolicy schedule="0 0 0 * * ?"/>
+        <SizeBasedTriggeringPolicy size="1GB"/>
+      </Policies>
+      <DefaultRolloverStrategy>
+        <fileIndex>nomax</fileIndex>
+        <Delete basePath="/logs/fblogs/error/" maxDepth="2">
+          <IfFileName glob="*/*.gz" />
+          <IfLastModified age="90d" />
+        </Delete>
+      </DefaultRolloverStrategy>     
+    </RollingFile>
+  </Appenders>
+  
+  <Loggers>
+    <AsyncRoot level="INFO">
+      <AppenderRef ref="Console"/>
+      <AppenderRef level="INFO" ref="InfoRollingFile"/>
+      <AppenderRef level="ERROR" ref="ErrorRollingFile"/>
+    </AsyncRoot>
+  </Loggers>
+  
+</Configuration>
