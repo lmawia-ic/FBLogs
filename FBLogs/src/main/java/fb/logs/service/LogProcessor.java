@@ -4,6 +4,6 @@ import fb.logs.model.FBLogRequest;
 
 public interface LogProcessor {
 
-	void insertLog(FBLogRequest logRequest);
+	void insertLog(FBLogRequest logRequest, String channel);
 	
 }

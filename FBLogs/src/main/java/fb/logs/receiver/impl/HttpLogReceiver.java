@@ -22,6 +22,7 @@ public class HttpLogReceiver implements LogReceiver {
 
 	@Autowired
 	private LogProcessor logsProcessor;
+	private static final String CHANNEL = "HTTP";
 	
 	private static final Logger logger = LogManager.getLogger(HttpLogReceiver.class);
 	
@@ -33,7 +34,7 @@ public class HttpLogReceiver implements LogReceiver {
 
 	@Override
 	public void recieveLogs(FBLogRequest logRequest) {
-		logsProcessor.insertLog(logRequest);
+		logsProcessor.insertLog(logRequest, CHANNEL);
 	}
 	
 }

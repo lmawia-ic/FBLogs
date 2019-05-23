@@ -22,6 +22,7 @@ public class KafkaLogReceiver implements LogReceiver {
 
 	@Autowired
 	private LogProcessor logsProcessor;
+	private static final String CHANNEL = "KAFKA";
 	
 	private static Logger logger = LogManager.getLogger(KafkaLogReceiver.class);
 	private static ObjectMapper mapper = new ObjectMapper();
@@ -41,7 +42,7 @@ public class KafkaLogReceiver implements LogReceiver {
 	@Override
 	public void recieveLogs(FBLogRequest logRequest) {
 		if (logRequest != null) {
-			logsProcessor.insertLog(logRequest);
+			logsProcessor.insertLog(logRequest, CHANNEL);
 		} else {
 			logger.info("logRequest is NULL");
 		}

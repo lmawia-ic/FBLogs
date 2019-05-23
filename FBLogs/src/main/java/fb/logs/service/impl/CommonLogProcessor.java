@@ -19,7 +19,7 @@ public class CommonLogProcessor implements LogProcessor {
 	private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
 	
 	@Override
-	public void insertLog(FBLogRequest logRequest) {
+	public void insertLog(FBLogRequest logRequest, String channel) {
 		if (logRequest.getSource() == null || logRequest.getSource().isEmpty()) {
 			logger.error("Log received from an unidentified source! Log received is: " + logRequest.toString());
 			return;
@@ -38,6 +38,7 @@ public class CommonLogProcessor implements LogProcessor {
 		}
 		stringBuilder.append(logRequest.getLevel().toUpperCase()).append(" ");
 		stringBuilder.append("Source=").append(logRequest.getSource()).append(" ");
+		stringBuilder.append("Channel=").append(channel).append(" ");
 		if (logRequest.getWorkflow() != null) {
 			stringBuilder.append("Workflow=").append(logRequest.getWorkflow()).append(" ");
 		}
